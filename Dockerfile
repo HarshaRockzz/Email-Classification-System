@@ -8,6 +8,7 @@ RUN python -m spacy download en_core_web_sm
 
 COPY . .
 
-EXPOSE 8000
+ENV MODEL_PATH=/app/models/bert_model
+ENV TOKENIZER_PATH=/app/models/tokenizer
 
 CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]
