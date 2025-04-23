@@ -10,11 +10,6 @@ pinned: false
 
 # 📧 Email Classification System
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
-![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-![CI/CD](https://github.com/<your_username>/email-classification-system/actions/workflows/deploy.yml/badge.svg)
-
 A production-grade **email classification API** for support teams, built using **DistilBERT**, **FastAPI**, and **Docker**. This system classifies incoming emails into _Incident_, _Request_, _Problem_, or _Change_ and securely masks sensitive user data using **SpaCy** and **Regex**. Deployed on **Hugging Face Spaces**, and integrated with **GitHub Actions** for seamless CI/CD.
 
 ---
