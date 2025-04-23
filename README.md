@@ -8,179 +8,144 @@ app_file: Dockerfile
 pinned: false
 ---
 
-# Email Classification System
-A cutting-edge email classification system designed for support teams to categorize emails into Incident, Request, Problem, or Change. Powered by DistilBERT for precise classification and SpaCy + Regex for secure PII masking, it ensures privacy compliance. Deployed on Hugging Face Spaces using FastAPI and Docker, this project leverages GitHub Actions for automated CI/CD, showcasing modern DevOps practices.
+# 📧 Email Classification System
 
-🌟 Key Features
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
+![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![CI/CD](https://github.com/<your_username>/email-classification-system/actions/workflows/deploy.yml/badge.svg)
 
-Advanced Classification:
-Utilizes DistilBERT for high-accuracy email categorization.
-Supports four categories: Incident, Request, Problem, Change.
+A production-grade **email classification API** for support teams, built using **DistilBERT**, **FastAPI**, and **Docker**. This system classifies incoming emails into _Incident_, _Request_, _Problem_, or _Change_ and securely masks sensitive user data using **SpaCy** and **Regex**. Deployed on **Hugging Face Spaces**, and integrated with **GitHub Actions** for seamless CI/CD.
 
+---
 
-Secure PII Masking:
-Masks sensitive data (emails, names, phone numbers) using SpaCy and Regex.
-Non-LLM approach ensures compliance with privacy regulations.
+## ✨ Features
 
+### 🤖 Advanced Classification
+- ⚡ Powered by **DistilBERT** for accurate NLP classification.
+- 🎯 Supports four categories: `Incident`, `Request`, `Problem`, `Change`.
 
-Scalable API:
-FastAPI powers a clean /classify POST endpoint.
-Delivers structured JSON output for seamless integration.
+### 🛡️ Secure PII Masking
+- 🔍 Uses **SpaCy** and **Regex** to identify and mask emails, names, phone numbers.
+- ✅ Ensures compliance with privacy standards without relying on LLMs.
 
+### 🚀 Production-Ready API
+- ⚙️ Built with **FastAPI** and exposed via a clean `/classify` endpoint.
+- 📦 Returns structured JSON responses for easy integration.
 
-Production-Ready:
-Dockerized for consistent development and deployment environments.
-Hosted on Hugging Face Spaces for reliable access.
+### 🐳 Containerized & Scalable
+- 📦 Dockerized for consistent dev and prod environments.
+- 🌐 Deployed on Hugging Face Spaces using Docker runtime.
 
+### 🧪 Robust Testing
+- ✔️ Comprehensive unit tests (model, masking, API) via **pytest**.
+- 🧠 Covers edge cases, regressions, and failure modes.
 
-Robust Testing:
-Comprehensive unit tests for API, model, and PII masking using pytest.
-Ensures system reliability and maintainability.
+### 🔄 Automated CI/CD
+- ⚙️ Seamless deployments with **GitHub Actions**.
+- 🔐 Hugging Face deployments triggered on push to `main`.
 
+---
 
-Automated CI/CD:
-GitHub Actions enables rapid, error-free deployments.
-Streamlines updates to Hugging Face Spaces.
+## 🛠️ Local Development Setup
 
+### 🔧 Prerequisites
+- Python 3.8+
+- Docker
+- Git
 
-Code Excellence:
-Adheres to PEP8 standards with type hints.
-Well-documented with structured logging via Loguru.
+### 📦 Installation
 
-
-
-
-🛠️ Local Setup
-🔧 Prerequisites
-
-Python: 3.8 or higher
-Docker: Recommended for containerized deployment
-Git: For version control
-
-📦 Installation Steps
-
-Clone the Repository:
-git clone https://github.com/HarshaRockzz/email-classification-system.git
+```bash
+git clone https://github.com/<your_username>/email-classification-system.git
 cd email-classification-system
 
-
-Set Up Virtual Environment:
+# Set up Python env
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate   # Windows: venv\Scripts\activate
 
-
-Install Dependencies:
+# Install requirements
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
+⚙️ Environment Configuration
+Create a .env file in root:
 
+env
 
-Configure Environment:
-
-Create a .env file in the root directory:
 MODEL_PATH=./models/bert_model
 TOKENIZER_PATH=./models/tokenizer
-
-
-
-
-Prepare Dataset:
-
+📊 Prepare Dataset
 Ensure data/combined_emails_with_natural_pii.csv is available.
 
+🏋️‍♂️ Train the Model
+bash
 
-Train the Model:
 python scripts/train_model.py
-
-
-Run the API:
+▶️ Run the API Server
+bash
 uvicorn src.app:app --host 0.0.0.0 --port 8000
-
-
-Test the API:
-
-Send a POST request to http://localhost:8000/classify:
-{
-  "email_body": "Subject: Issue\nHello, my name is John Doe, contact me at john@example.com."
-}
-
-
-
-
-
+🧪 Example API Call
+bash
+curl -X POST http://localhost:8000/classify \
+     -H "Content-Type: application/json" \
+     -d '{"email_body": "Subject: Issue\nHello, my name is John Doe, contact me at john@example.com."}'
 🐳 Docker Setup
-
-Build the Image:
+📦 Build Image
+bash
 docker build -t email-classifier .
-
-
-Run the Container:
+▶️ Run Container
+bash
 docker run -p 8000:8000 --env-file .env email-classifier
-
-
-Access the API:
-
-Navigate to http://localhost:8000.
-
-
-
-
-🚀 Deployment on Hugging Face Spaces
+🚀 Deploying to Hugging Face Spaces
 🔧 Prerequisites
+ Hugging Face Account
 
-Hugging Face Account: For hosting the Space
-GitHub Account: For version control and CI/CD
-Hugging Face Space: Configured with Docker runtime
+ GitHub Account
 
-📤 Deployment Steps
+ Hugging Face Space with Docker runtime
 
-Create a Space:
+🚢 Deployment Instructions
+Create a New Space:
 
-Visit Hugging Face Spaces.
-Select Docker runtime.
-Note the Space URL (e.g., https://huggingface.co/spaces/<your_username>/email-classifier).
+Runtime: Docker
 
+Note the URL: https://huggingface.co/spaces/<your_username>/email-classifier
 
 Push Code to GitHub:
+
+bash
 git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
 git remote add origin https://github.com/<your_username>/email-classification-system.git
 git push -u origin main
+Set Up CI/CD:
 
+Ensure .github/workflows/deploy.yml exists.
 
-Configure CI/CD:
+Add HF_TOKEN in GitHub Secrets:
 
-Verify .github/workflows/deploy.yml exists.
-Add HF_TOKEN in GitHub:
-Go to Settings > Secrets and Variables > Actions > New Repository Secret.
-Name: HF_TOKEN, Value: Your Hugging Face API token.
+Settings → Secrets → Actions → New Secret
 
+Name: HF_TOKEN, Value: Your Hugging Face Token
 
+Deploy:
 
+Any push to main auto-triggers deployment.
 
-Trigger Deployment:
-
-Push changes to the main branch.
-Monitor progress in the GitHub Actions tab.
-
-
-Verify Deployment:
-curl -X POST https://<your_username>-email-classifier.hf.space/classify \
-     -H "Content-Type: application/json" \
-     -d '{"email_body": "Subject: Issue\nHello, my name is John Doe, contact me at john@example.com."}'
-
-
-
-
-🔗 API Specification
+🔍 API Specification
 POST /classify
-Request
+
+Request Body:
+
+json
 {
   "email_body": "string"
 }
+Response:
 
-Response
+json
 {
   "input_email_body": "string",
   "list_of_masked_entities": [
@@ -193,56 +158,42 @@ Response
   "masked_email": "string",
   "category_of_the_email": "string"
 }
-
-
 🧪 Testing
-
-Run Unit Tests:
+Run all tests using:
 pytest tests/
+Validates:
 
+API endpoint
 
-Purpose: Validates API functionality, model accuracy, and PII masking logic.
+Classification accuracy
 
-Coverage: Includes edge cases and error scenarios.
+PII masking integrity
 
+📊 Project Report
+See docs/report.pdf for detailed analysis including:
 
+🎯 Objectives: Automate email classification with privacy safeguards
 
-📈 Project Report
-Explore docs/report.pdf for a detailed analysis, including:
+🧠 Architecture: DistilBERT + SpaCy + Regex
 
-Problem Statement: Objectives and use case.
-Architecture: DistilBERT for classification, SpaCy + Regex for PII masking.
-Metrics: Accuracy, F1-score, and performance benchmarks.
-Challenges:
-Handling multilingual emails.
-Limited training data.
+📈 Metrics: Accuracy, F1-score, latency benchmarks
 
+🚧 Challenges:
 
-Solutions:
-Data augmentation techniques.
-Transfer learning with DistilBERT.
+Multilingual support
 
+Data scarcity
 
+💡 Solutions:
 
+Data augmentation
+
+Transfer learning
 
 💡 Technical Highlights
 
-Performance Optimization:
-DistilBERT delivers fast, accurate classification.
-Lightweight model for low-latency inference.
-
-
-Privacy Compliance:
-Non-LLM PII masking ensures regulatory adherence.
-Secure handling of sensitive data.
-
-
-Code Quality:
-PEP8-compliant with type hints for maintainability.
-Extensive documentation for collaboration.
-
-
-Logging:
-Structured logs via Loguru for debugging and monitoring.
-
-
+Area	Highlight
+⚡ Performance	DistilBERT ensures high throughput & low-latency inference
+🔐 Privacy	No-LLM PII masking using SpaCy + Regex
+🧑‍💻 Code Quality	PEP8, type hints, modular design, Loguru for logging
+🔁 DevOps	CI/CD via GitHub Actions, Dockerized deployment
