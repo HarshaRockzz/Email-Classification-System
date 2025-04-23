@@ -1,3 +1,13 @@
+---
+title: Email Classifier
+emoji: 📧
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_file: Dockerfile
+pinned: false
+---
+
 # Email Classification System
 A cutting-edge email classification system designed for support teams to categorize emails into Incident, Request, Problem, or Change. Powered by DistilBERT for precise classification and SpaCy + Regex for secure PII masking, it ensures privacy compliance. Deployed on Hugging Face Spaces using FastAPI and Docker, this project leverages GitHub Actions for automated CI/CD, showcasing modern DevOps practices.
 
